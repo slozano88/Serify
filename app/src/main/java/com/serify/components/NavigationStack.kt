@@ -73,6 +73,18 @@ fun NavigationStack() {
                 serieId = serieId,
                 onBackClick = {
                     navController.popBackStack()
+                },
+                onHomeClick = {
+                    navController.navigate(Screen.Home.route)
+                },
+                onExploreClick = {
+                    navController.navigate(Screen.Explore.route)
+                },
+                onSavedClick = {
+                    navController.navigate(Screen.Saved.route)
+                },
+                onProfileClick = {
+                    navController.navigate(Screen.Profile.route)
                 }
             )
         }

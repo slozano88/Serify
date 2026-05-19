@@ -1,6 +1,7 @@
 package com.serify.data.repository
 
 import com.serify.data.api.Retrofit
+import com.serify.data.model.CastMember
 import com.serify.data.model.Serie
 import com.serify.data.model.TvMazeShow
 import com.serify.domain.ISeriesRepository
@@ -38,6 +39,20 @@ class SeriesRepository : ISeriesRepository {
                 serie.id
             }
             .shuffled()
+            .take(10)
+    }
+
+    override suspend fun getSerieCast(id: Int): List<CastMember> {
+        return api.getShowCast(id)
+            .mapNotNull { item ->
+                val personName = item.person?.name ?: return@mapNotNull null
+
+                CastMember(
+                    personName = personName,
+                    characterName = item.character?.name,
+                    imageUrl = item.person?.image?.medium ?: item.person?.image?.original
+                )
+            }
             .take(10)
     }
 

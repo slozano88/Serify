@@ -1,5 +1,6 @@
 package com.serify.domain
 
+import com.serify.data.model.CastMember
 import com.serify.data.model.Serie
 
 interface ISeriesRepository {
@@ -9,4 +10,5 @@ interface ISeriesRepository {
     suspend fun searchSeries(query: String): List<Serie>
     suspend fun getSerieById(id: Int): Serie
     suspend fun getSeriesByGenre(genre: String): List<Serie>
+    suspend fun getSerieCast(id: Int): List<CastMember>
 }

@@ -21,11 +21,14 @@ class SeriesDetailScreenViewModel : ViewModel() {
                 _state.value = SeriesDetailScreenState(isLoading = true)
 
                 val serie = repository.getSerieById(id)
+                val cast = repository.getSerieCast(id)
 
                 _state.value = SeriesDetailScreenState(
                     isLoading = false,
-                    serie = serie
+                    serie = serie,
+                    cast = cast
                 )
+
             } catch (e: Exception) {
                 _state.value = SeriesDetailScreenState(
                     isLoading = false,

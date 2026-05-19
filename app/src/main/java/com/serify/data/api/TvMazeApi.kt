@@ -1,5 +1,6 @@
 package com.serify.data.api
 
+import com.serify.data.model.TvMazeCastResponse
 import com.serify.data.model.TvMazeSearchResponse
 import com.serify.data.model.TvMazeShow
 import retrofit2.http.GET
@@ -24,4 +25,8 @@ interface TvMazeApi {
     suspend fun getShows(
         @Query("page") page: Int
     ): List<TvMazeShow>
+    @GET("shows/{id}/cast")
+    suspend fun getShowCast(
+        @Path("id") id: Int
+    ): List<TvMazeCastResponse>
 }
