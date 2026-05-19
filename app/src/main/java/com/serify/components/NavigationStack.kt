@@ -9,6 +9,7 @@ import com.serify.components.home.HomeScreen
 import com.serify.components.seriesdetail.SeriesDetailScreen
 import androidx.navigation.navArgument
 import com.serify.components.genre.GenreScreen
+import com.serify.components.explore.ExploreScreen
 
 @Composable
 fun NavigationStack() {
@@ -77,9 +78,18 @@ fun NavigationStack() {
         }
 
         composable(Screen.Explore.route) {
-            HomeScreen(
+            ExploreScreen(
                 onSerieClick = { serieId ->
                     navController.navigate(Screen.SeriesDetail.createRoute(serieId))
+                },
+                onHomeClick = {
+                    navController.navigate(Screen.Home.route)
+                },
+                onSavedClick = {
+                    navController.navigate(Screen.Saved.route)
+                },
+                onProfileClick = {
+                    navController.navigate(Screen.Profile.route)
                 }
             )
         }
