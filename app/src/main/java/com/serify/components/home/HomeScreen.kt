@@ -33,6 +33,9 @@ import com.serify.components.commons.TrendingSeriesItem
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 
 @Composable
 fun HomeScreen(
@@ -44,6 +47,18 @@ fun HomeScreen(
     onProfileClick: () -> Unit = {}
 ) {
     val state by viewModel.state.collectAsState()
+    val genres = listOf(
+        "Drama",
+        "Comedy",
+        "Crime",
+        "Action",
+        "Adventure",
+        "Fantasy",
+        "Mystery",
+        "Romance",
+        "Science-Fiction",
+        "Thriller"
+    )
 
     Scaffold(
         bottomBar = {
@@ -86,24 +101,19 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(22.dp))
 
-            Row(
+            LazyRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                contentPadding = PaddingValues(horizontal = 0.dp)
             ) {
-                CategoryCard(
-                    genre = "Drama",
-                    onClick = { onGenreClick("Drama") }
-                )
-
-                CategoryCard(
-                    genre = "Crime",
-                    onClick = { onGenreClick("Crime") }
-                )
-
-                CategoryCard(
-                    genre = "Comedy",
-                    onClick = { onGenreClick("Comedy") }
-                )
+                items(genres) { genre ->
+                    CategoryCard(
+                        genre = genre,
+                        onClick = {
+                            onGenreClick(genre)
+                        }
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(14.dp))
@@ -151,7 +161,7 @@ fun HomeScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Tendencias",
+                    text = "Tendencias principales",
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF222222)
                 )

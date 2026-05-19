@@ -3,9 +3,8 @@ package com.serify.components.commons
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -25,10 +24,9 @@ fun CategoryCard(
 ) {
     Card(
         modifier = Modifier
-            .width(78.dp)
-            .height(54.dp)
+            .height(46.dp)
             .clickable { onClick() },
-        shape = RoundedCornerShape(9.dp),
+        shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         ),
@@ -39,7 +37,8 @@ fun CategoryCard(
         )
     ) {
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .padding(horizontal = 18.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
