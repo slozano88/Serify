@@ -19,4 +19,9 @@ interface TvMazeApi {
     suspend fun getShowById(
         @Path("id") id: Int
     ): TvMazeShow
+
+    @GET("shows")
+    suspend fun getShows(
+        @Query("page") page: Int
+    ): List<TvMazeShow>
 }

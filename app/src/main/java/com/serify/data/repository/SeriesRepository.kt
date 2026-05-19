@@ -19,6 +19,28 @@ class SeriesRepository : ISeriesRepository {
         return api.getShowById(id).toSerie()
     }
 
+    override suspend fun getSeriesByGenre(genre: String): List<Serie> {
+        val pagesToLoad = listOf(0, 1, 2)
+
+        return pagesToLoad
+            .flatMap { page ->
+                api.getShows(page)
+            }
+            .map { show ->
+                show.toSerie()
+            }
+            .filter { serie ->
+                serie.genres.any { item ->
+                    item.equals(genre, ignoreCase = true)
+                }
+            }
+            .distinctBy { serie ->
+                serie.id
+            }
+            .shuffled()
+            .take(10)
+    }
+
     private fun TvMazeShow.toSerie(): Serie {
         return Serie(
             id = id,

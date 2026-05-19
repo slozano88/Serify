@@ -24,12 +24,30 @@ class HomeScreenViewModel : ViewModel() {
             try {
                 _state.value = HomeScreenState(isLoading = true)
 
-                val series = repository.searchSeries("drama")
+                val queries = listOf(
+                    "love",
+                    "war",
+                    "school",
+                    "crime",
+                    "doctor",
+                    "family",
+                    "space",
+                    "king"
+                )
+
+                val allSeries = queries
+                    .flatMap { query ->
+                        repository.searchSeries(query)
+                    }
+                    .distinctBy { serie ->
+                        serie.id
+                    }
+                    .shuffled()
 
                 _state.value = HomeScreenState(
                     isLoading = false,
-                    featuredSerie = series.firstOrNull(),
-                    trendingSeries = series.drop(1).take(3)
+                    featuredSerie = allSeries.firstOrNull(),
+                    trendingSeries = allSeries.drop(1).take(10)
                 )
 
             } catch (e: Exception) {

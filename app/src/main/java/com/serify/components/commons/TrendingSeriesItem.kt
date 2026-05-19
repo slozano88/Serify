@@ -27,16 +27,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.serify.data.model.Serie
+import androidx.compose.foundation.clickable
 
 @Composable
 fun TrendingSeriesItem(
     ranking: String,
-    serie: Serie
+    serie: Serie,
+    onClick: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(86.dp),
+            .height(86.dp)
+            .clickable { onClick() },
         shape = RoundedCornerShape(9.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White

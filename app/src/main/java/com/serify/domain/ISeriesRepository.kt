@@ -8,4 +8,5 @@ interface ISeriesRepository {
 
     suspend fun searchSeries(query: String): List<Serie>
     suspend fun getSerieById(id: Int): Serie
+    suspend fun getSeriesByGenre(genre: String): List<Serie>
 }

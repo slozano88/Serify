@@ -28,10 +28,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.serify.data.model.Serie
+import androidx.compose.foundation.clickable
 
 @Composable
 fun FeaturedSeriesCard(
-    serie: Serie
+    serie: Serie,
+    onClick: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -39,6 +41,8 @@ fun FeaturedSeriesCard(
             .height(192.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFFD1D1D1))
+            .clickable { onClick() }
+
     ) {
         AsyncImage(
             model = serie.imageUrl,

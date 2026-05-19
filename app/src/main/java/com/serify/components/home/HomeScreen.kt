@@ -30,10 +30,15 @@ import com.serify.components.commons.BottomNavBar
 import com.serify.components.commons.CategoryCard
 import com.serify.components.commons.FeaturedSeriesCard
 import com.serify.components.commons.TrendingSeriesItem
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun HomeScreen(
     viewModel: HomeScreenViewModel = viewModel(),
+    onSerieClick: (Int) -> Unit = {},
+    onGenreClick: (String) -> Unit = {},
     onExploreClick: () -> Unit = {},
     onSavedClick: () -> Unit = {},
     onProfileClick: () -> Unit = {}
@@ -57,15 +62,16 @@ fun HomeScreen(
                 .fillMaxSize()
                 .background(Color.White)
                 .statusBarsPadding()
-                .navigationBarsPadding()
                 .padding(paddingValues)
+                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 18.dp)
         ) {
             Spacer(modifier = Modifier.height(34.dp))
 
             Text(
                 text = "Serify",
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 26.sp,
                 color = Color.Black
             )
 
@@ -78,15 +84,26 @@ fun HomeScreen(
                     .background(Color(0xFFD9D9D9))
             )
 
-            Spacer(modifier = Modifier.height(18.dp))
+            Spacer(modifier = Modifier.height(22.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                CategoryCard()
-                CategoryCard()
-                CategoryCard()
+                CategoryCard(
+                    genre = "Drama",
+                    onClick = { onGenreClick("Drama") }
+                )
+
+                CategoryCard(
+                    genre = "Crime",
+                    onClick = { onGenreClick("Crime") }
+                )
+
+                CategoryCard(
+                    genre = "Comedy",
+                    onClick = { onGenreClick("Comedy") }
+                )
             }
 
             Spacer(modifier = Modifier.height(14.dp))
@@ -119,7 +136,10 @@ fun HomeScreen(
 
                 state.featuredSerie != null -> {
                     FeaturedSeriesCard(
-                        serie = state.featuredSerie!!
+                        serie = state.featuredSerie!!,
+                        onClick = {
+                            onSerieClick(state.featuredSerie!!.id)
+                        }
                     )
                 }
             }
@@ -136,14 +156,6 @@ fun HomeScreen(
                     color = Color(0xFF222222)
                 )
 
-                TextButton(
-                    onClick = { }
-                ) {
-                    Text(
-                        text = "Ver todas",
-                        color = Color(0xFF9A9A9A)
-                    )
-                }
             }
 
             Column(
@@ -152,10 +164,14 @@ fun HomeScreen(
                 state.trendingSeries.forEachIndexed { index, serie ->
                     TrendingSeriesItem(
                         ranking = "0${index + 1}",
-                        serie = serie
+                        serie = serie,
+                        onClick = {
+                            onSerieClick(serie.id)
+                        }
                     )
                 }
             }
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }
