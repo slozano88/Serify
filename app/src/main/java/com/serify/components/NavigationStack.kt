@@ -11,7 +11,7 @@ import com.serify.components.genre.GenreScreen
 import com.serify.components.home.HomeScreen
 import com.serify.components.seriesdetail.SeriesDetailScreen
 import com.serify.components.splash.SplashScreen
-
+import com.serify.components.profile.ProfileScreen
 @Composable
 fun NavigationStack() {
     val navController = rememberNavController()
@@ -146,20 +146,27 @@ fun NavigationStack() {
         }
 
         composable(Screen.Profile.route) {
-            HomeScreen(
-                onSerieClick = { serieId ->
-                    navController.navigate(Screen.SeriesDetail.createRoute(serieId))
-                },
-                onGenreClick = { genreName ->
-                    navController.navigate(Screen.Genre.createRoute(genreName))
+            ProfileScreen(
+                onHomeClick = {
+                    navController.navigate(Screen.Home.route) {
+                        launchSingleTop = true
+                    }
                 },
                 onExploreClick = {
-                    navController.navigate(Screen.Explore.route)
+                    navController.navigate(Screen.Explore.route) {
+                        launchSingleTop = true
+                    }
                 },
                 onSavedClick = {
-                    navController.navigate(Screen.Saved.route)
+                    navController.navigate(Screen.Saved.route) {
+                        launchSingleTop = true
+                    }
                 },
-                onProfileClick = {}
+                onProfileClick = {
+                    navController.navigate(Screen.Profile.route) {
+                        launchSingleTop = true
+                    }
+                }
             )
         }
     }
