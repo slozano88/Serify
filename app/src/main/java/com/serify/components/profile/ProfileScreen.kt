@@ -46,6 +46,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.serify.components.commons.BottomNavBar
+import androidx.compose.foundation.clickable
+import androidx.compose.material.icons.outlined.Logout
 
 @Composable
 fun ProfileScreen(
@@ -53,7 +55,9 @@ fun ProfileScreen(
     onHomeClick: () -> Unit = {},
     onExploreClick: () -> Unit = {},
     onSavedClick: () -> Unit = {},
-    onProfileClick: () -> Unit = {}
+    onProfileClick: () -> Unit = {},
+    onLogout: () -> Unit = {}
+
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -101,7 +105,12 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            OptionsCard()
+            OptionsCard(
+                onLogoutClick = {
+                    viewModel.signOut()
+                    onLogout()
+                }
+            )
         }
     }
 }
@@ -265,7 +274,9 @@ private fun StatItem(
 }
 
 @Composable
-private fun OptionsCard() {
+private fun OptionsCard(
+    onLogoutClick: () -> Unit = {}
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -301,6 +312,13 @@ private fun OptionsCard() {
                 iconType = "history"
             )
 
+            Divider(color = Color(0xFFEDEDED))
+
+            ProfileOptionItem(
+                title = "Cerrar sesión",
+                iconType = "logout",
+                onClick = onLogoutClick
+            )
         }
     }
 }
@@ -308,13 +326,14 @@ private fun OptionsCard() {
 @Composable
 private fun ProfileOptionItem(
     title: String,
-    iconType: String
+    iconType: String,
+    onClick: () -> Unit = {}
 ) {
     val icon = when (iconType) {
-        "profile" -> Icons.Outlined.Person
         "preferences" -> Icons.Outlined.Tune
         "notifications" -> Icons.Outlined.Notifications
         "history" -> Icons.Outlined.History
+        "logout" -> Icons.Outlined.Logout
         else -> Icons.Outlined.Settings
     }
 
@@ -322,13 +341,14 @@ private fun ProfileOptionItem(
         modifier = Modifier
             .fillMaxWidth()
             .height(52.dp)
+            .clickable { onClick() }
             .padding(horizontal = 14.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = icon,
             contentDescription = title,
-            tint = Color(0xFFA6A6A6),
+            tint = if (iconType == "logout") Color(0xFFE50914) else Color(0xFFA6A6A6),
             modifier = Modifier
                 .width(22.dp)
                 .height(22.dp)
@@ -338,7 +358,7 @@ private fun ProfileOptionItem(
 
         Text(
             text = title,
-            color = Color(0xFF222222),
+            color = if (iconType == "logout") Color(0xFFE50914) else Color(0xFF222222),
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.weight(1f)

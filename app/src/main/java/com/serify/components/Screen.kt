@@ -2,9 +2,8 @@ package com.serify.components
 
 sealed class Screen(val route: String) {
     object Splash : Screen("splash")
-    object Home : Screen("home")
     object Login : Screen("login")
-
+    object Home : Screen("home")
     object Explore : Screen("explore")
     object Saved : Screen("saved")
     object Profile : Screen("profile")

@@ -187,6 +187,14 @@ fun NavigationStack() {
                     navController.navigate(Screen.Profile.route) {
                         launchSingleTop = true
                     }
+                },
+                onLogout = {
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(0) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
                 }
             )
         }
