@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "985131929999",
+    "project_id": "serify-6cdbb",
+    "storage_bucket": "serify-6cdbb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985131929999:android:0d5fd705ced0e14d143bfa",
+        "android_client_info": {
+          "package_name": "com.serify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985131929999-e0apgo68ji4k3f5ols9j7tt9op1k6thp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.serify",
+            "certificate_hash": "905160abc46538df9b056f804a56c634eaeacc73"
+          }
+        },
+        {
+          "client_id": "985131929999-kuhq1kv5n2si7p82h84h61b0c9co0n7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-wTMPey_hoCfhoaBdIQz1JJudyNdJQxw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985131929999-kuhq1kv5n2si7p82h84h61b0c9co0n7s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
