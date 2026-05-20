@@ -44,15 +44,26 @@ class HomeScreenViewModel : ViewModel() {
                     }
                     .shuffled()
 
+                val todayTv = try {
+                    repository.getTodayTv()
+                } catch (e: Exception) {
+                    emptyList()
+                }
+
                 _state.value = HomeScreenState(
                     isLoading = false,
                     featuredSerie = allSeries.firstOrNull(),
-                    trendingSeries = allSeries.drop(1).take(10)
+                    trendingSeries = allSeries.drop(1).take(5),
+                    todayTv = todayTv,
+                    error = null
                 )
 
             } catch (e: Exception) {
                 _state.value = HomeScreenState(
                     isLoading = false,
+                    featuredSerie = null,
+                    trendingSeries = emptyList(),
+                    todayTv = emptyList(),
                     error = "No se pudieron cargar las series."
                 )
             }

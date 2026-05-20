@@ -8,7 +8,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import com.serify.components.seriesdetail.model.Season
 import com.serify.components.seriesdetail.model.Episode
-
+import com.serify.data.model.TvMazeScheduleResponse
 interface TvMazeApi {
 
     // Sirve para buscar series por texto y por id
@@ -41,4 +41,8 @@ interface TvMazeApi {
     suspend fun getEpisodes(
         @Path("id") showId: Int
     ): List<Episode>
+    @GET("schedule")
+    suspend fun getTodaySchedule(
+        @Query("country") country: String = "US"
+    ): List<TvMazeScheduleResponse>
 }

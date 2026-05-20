@@ -4,6 +4,7 @@ import com.serify.data.model.CastMember
 import com.serify.data.model.Serie
 import com.serify.components.seriesdetail.model.Season
 import com.serify.components.seriesdetail.model.Episode
+import com.serify.data.model.TodayTvItem
 
 interface ISeriesRepository {
 
@@ -16,4 +17,5 @@ interface ISeriesRepository {
     suspend fun getSeasons(id: Int): List<Season>
 
     suspend fun getEpisodes(id: Int): List<Episode>
+    suspend fun getTodayTv(): List<TodayTvItem>
 }

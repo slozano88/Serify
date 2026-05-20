@@ -7,6 +7,7 @@ import com.serify.data.model.TvMazeShow
 import com.serify.domain.ISeriesRepository
 import com.serify.components.seriesdetail.model.Episode
 import com.serify.components.seriesdetail.model.Season
+import com.serify.data.model.TodayTvItem
 class SeriesRepository : ISeriesRepository {
 
     private val api = Retrofit.tvMazeApi
@@ -75,5 +76,26 @@ class SeriesRepository : ISeriesRepository {
             premiered = premiered,
             status = status
         )
+    }
+    override suspend fun getTodayTv(): List<TodayTvItem> {
+        return api.getTodaySchedule(country = "US")
+            .mapNotNull { item ->
+                val show = item.show ?: return@mapNotNull null
+
+                TodayTvItem(
+                    episodeName = item.name ?: "Nuevo episodio",
+                    showName = show.name,
+                    showId = show.id,
+                    imageUrl = item.image?.medium
+                        ?: item.image?.original
+                        ?: show.image?.medium
+                        ?: show.image?.original,
+                    airtime = item.airtime,
+                    season = item.season,
+                    number = item.number
+                )
+            }
+            .distinctBy { it.showId }
+            .take(10)
     }
 }

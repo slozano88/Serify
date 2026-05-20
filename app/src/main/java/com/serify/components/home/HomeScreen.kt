@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import com.serify.components.commons.TodayTvCard
 
 @Composable
 fun HomeScreen(
@@ -101,22 +102,41 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(22.dp))
 
-            LazyRow(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                contentPadding = PaddingValues(horizontal = 0.dp)
-            ) {
-                items(genres) { genre ->
-                    CategoryCard(
-                        genre = genre,
-                        onClick = {
-                            onGenreClick(genre)
-                        }
-                    )
+            Text(
+                text = "Nuevo hoy",
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp,
+                color = Color(0xFF222222)
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            if (state.todayTv.isEmpty()) {
+                Text(
+                    text = "No hay estrenos o emisiones disponibles para hoy.",
+                    color = Color.Gray,
+                    fontSize = 13.sp
+                )
+            } else {
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    contentPadding = PaddingValues(horizontal = 0.dp)
+                ) {
+                    items(state.todayTv) { item ->
+                        TodayTvCard(
+                            item = item,
+                            onClick = {
+                                item.showId?.let { id ->
+                                    onSerieClick(id)
+                                }
+                            }
+                        )
+                    }
                 }
             }
 
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(18.dp))
 
             when {
                 state.isLoading -> {
